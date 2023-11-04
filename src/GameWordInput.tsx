@@ -1,6 +1,7 @@
 import { TextInput, rem, useMantineTheme } from "@mantine/core";
 import { KeyboardEvent, forwardRef, useEffect, useState } from "react";
 import useWdingleGame from "./GameData";
+import { useCounter } from "@mantine/hooks";
 
 interface GameWordInputProps {
   index: number;
@@ -19,6 +20,7 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(
     const answer = game.gameData[index].text;
     const [value, setValue] = useState("");
     const [status, setStatus] = useState<wordStatus>("input");
+    const [localMistakes, setLocalMistakes] = useCounter(0);
 
     function confirm(event: KeyboardEvent) {
       if (event.key === "Enter" || event.key === " ") {
@@ -29,6 +31,7 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(
         } else {
           setStatus("incorrect");
           game.addMistake();
+          setLocalMistakes.increment();
         }
       }
     }
@@ -58,13 +61,16 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(
             width: `calc(${answer.length}ch)`,
             transition: '500ms all ease-out',
           },
+          root: {
+            display: 'inline-block',
+          }
         }}
         variant="filled"
         mt={rem(-16)}
         value={value}
         disabled={status === "correct"}
         error={status === "incorrect"}
-        description={value.length + " / " + answer.length}
+        description={value.length + " / " + answer.length + " " + answer.slice(0, localMistakes)}
         onChange={(event) => setValue(event.currentTarget.value)}
         onKeyDown={confirm}
         ref={ref}

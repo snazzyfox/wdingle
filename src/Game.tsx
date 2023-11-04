@@ -53,17 +53,14 @@ function GameSentence() {
   useEffect(() => focusNextInput(0), []);
 
   return (
-    <Flex
-      columnGap={rem(4)}
-      rowGap="xl"
-      align="center"
-      wrap="wrap"
+    <Text
       my="xl"
       mx="md"
       fz="lg"
+      lh={rem(64)}
     >
       {sections.map((section) => section.component)}
-    </Flex>
+    </Text>
   );
 }
 
