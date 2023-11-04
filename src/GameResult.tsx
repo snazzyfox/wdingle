@@ -58,6 +58,7 @@ export default function GameResult() {
                   You might not have gotten the correct answer, but you can still share this result with your frens.
                 </Text>
               )}
+              <Text>Come back tomorrow for the next one!</Text>
               <CopyButton value={shareData(gameData.gameDateString, stars, gameData.mistakes, gameData.totalWords)}>
                 {({ copied, copy }) => (
                   <Button color={copied ? "green" : "yellow"} leftSection={<IconClipboard />} onClick={copy}>
