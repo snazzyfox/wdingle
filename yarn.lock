@@ -361,6 +361,14 @@
   "resolved" "https://registry.npmjs.org/@mantine/hooks/-/hooks-7.1.7.tgz"
   "version" "7.1.7"
 
+"@nabla/vite-plugin-eslint@^1.5.0":
+  "integrity" "sha512-3NR+mHcW4lY9n1t+cqM8W1xM/UQXKpuDyaoJmPPQKoBCEjFoSvE4XcJwG86lk7K0AauqWwecsgEhmdZLDW07YQ=="
+  "resolved" "https://registry.npmjs.org/@nabla/vite-plugin-eslint/-/vite-plugin-eslint-1.5.0.tgz"
+  "version" "1.5.0"
+  dependencies:
+    "@types/eslint" "*"
+    "chalk" "^4"
+
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
   "resolved" "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -428,7 +436,20 @@
   dependencies:
     "@babel/types" "^7.20.7"
 
-"@types/json-schema@^7.0.9":
+"@types/eslint@*":
+  "integrity" "sha512-P6bY56TVmX8y9J87jHNgQh43h6VVU+6H7oN7hgvivV81K2XY8qJZ5vqPy/HdUoVIelii2kChYVzQanlswPWVFw=="
+  "resolved" "https://registry.npmjs.org/@types/eslint/-/eslint-8.44.6.tgz"
+  "version" "8.44.6"
+  dependencies:
+    "@types/estree" "*"
+    "@types/json-schema" "*"
+
+"@types/estree@*":
+  "integrity" "sha512-2JwWnHK9H+wUZNorf2Zr6ves96WHoWDJIftkcxPKsS7Djta6Zu519LarhRNljPXkpsZR2ZMwNCPeW7omW07BJw=="
+  "resolved" "https://registry.npmjs.org/@types/estree/-/estree-1.0.4.tgz"
+  "version" "1.0.4"
+
+"@types/json-schema@*", "@types/json-schema@^7.0.9":
   "integrity" "sha512-U3PUjAudAdJBeC2pgN8uTIKgxrb4nlDF3SF0++EldXQvQBGkpFZMSnwQiIoDU77tv45VgNkl/L4ouD+rEomujw=="
   "resolved" "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.14.tgz"
   "version" "7.0.14"
@@ -675,6 +696,14 @@
     "supports-color" "^5.3.0"
 
 "chalk@^4.0.0":
+  "integrity" "sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA=="
+  "resolved" "https://registry.npmjs.org/chalk/-/chalk-4.1.2.tgz"
+  "version" "4.1.2"
+  dependencies:
+    "ansi-styles" "^4.1.0"
+    "supports-color" "^7.1.0"
+
+"chalk@^4":
   "integrity" "sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA=="
   "resolved" "https://registry.npmjs.org/chalk/-/chalk-4.1.2.tgz"
   "version" "4.1.2"
@@ -1724,7 +1753,7 @@
   "resolved" "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz"
   "version" "1.0.2"
 
-"vite@^4.2.0", "vite@^4.3.2":
+"vite@^2 || ^3 || ^4", "vite@^4.2.0", "vite@^4.3.2":
   "integrity" "sha512-ulr8rNLA6rkyFAlVWw2q5YJ91v098AFQ2R0PRFwPzREXOUJQPtFUG0t+/ZikhaOCDqFoDhN6/v8Sq0o4araFAw=="
   "resolved" "https://registry.npmjs.org/vite/-/vite-4.5.0.tgz"
   "version" "4.5.0"

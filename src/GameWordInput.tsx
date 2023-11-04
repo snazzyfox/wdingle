@@ -56,6 +56,7 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(
             paddingLeft: rem(8),
             paddingRight: rem(8),
             width: `calc(${answer.length}ch)`,
+            transition: '500ms all ease-out',
           },
         }}
         variant="filled"

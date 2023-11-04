@@ -10,6 +10,7 @@ import {
 import GameWordInput from "./GameWordInput";
 import { useEffect, useRef } from "react";
 import useWdingleGame from "./GameData";
+import GameResult from "./GameResult";
 
 function GameSentence() {
   const game = useWdingleGame();
@@ -68,16 +69,10 @@ function GameSentence() {
 
 function Header() {
   const game = useWdingleGame();
-  const dateString =
-    game.gameDate.getUTCFullYear() +
-    "/" +
-    game.gameDate.getUTCMonth().toString().padStart(2, "0") +
-    "/" +
-    game.gameDate.getUTCDate().toString().padStart(2, "0");
 
   return (
     <>
-      <Title order={2}>wdingle for {dateString}</Title>
+      <Title order={2}>wdingle for {game.gameDateString}</Title>
       <Group gap="xl">
         <Text>
           Words: {game.correct} / {game.totalWords}
@@ -96,6 +91,7 @@ export default function Game() {
       <Stack gap="xl" align="center">
         <Header />
         <GameSentence />
+        <GameResult/>
       </Stack>
     </Container>
   );

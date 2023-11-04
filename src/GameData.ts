@@ -35,14 +35,22 @@ export default function useWdingleGame() {
 
   // Debug override: id url param
   const params = new URLSearchParams(window.location.search);
-  const gameNumber = Number(new URLSearchParams(params).get('id')) ?? Math.floor(gameDate.getTime() / 86_400_000);
+  const gameNumber =
+    Number(new URLSearchParams(params).get("id")) ??
+    Math.floor(gameDate.getTime() / 86_400_000);
   const gameData = getGameData(gameNumber);
   const totalWords = gameData.filter((s) => s.isBlank).length;
   const maxMistakes = totalWords;
+  const gameDateString =
+    gameDate.getUTCFullYear() +
+    "/" +
+    (gameDate.getUTCMonth() + 1).toString().padStart(2, "0") +
+    "/" +
+    gameDate.getUTCDate().toString().padStart(2, "0");
 
   const [gameSave, setGameSave] = useLocalStorage<GameSaveData>({
     key: "wdingle-game",
-    defaultValue: { id: gameNumber, found: [], mistakes: 0 }
+    defaultValue: { id: gameNumber, found: [], mistakes: 0 },
   });
   if (gameSave!.id !== gameNumber) {
     setGameSave({ id: gameNumber, found: [], mistakes: 0 });
@@ -52,7 +60,7 @@ export default function useWdingleGame() {
   const mistakes = gameSave?.mistakes ?? 0;
 
   function setFound(index: number) {
-    setGameSave({ ...gameSave!, found: [...gameSave!.found ?? [], index] });
+    setGameSave({ ...gameSave!, found: [...(gameSave!.found ?? []), index] });
   }
 
   function addMistake() {
@@ -61,6 +69,8 @@ export default function useWdingleGame() {
 
   return {
     gameDate,
+    gameDateString,
+    gameNumber,
     gameData,
     totalWords,
     correct,
