@@ -53,13 +53,13 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(
           input: {
             boxSizing: "content-box",
             backgroundColor: status === "correct" ? "transparent" : undefined,
-            color: status === "correct" ? theme.colors.green[8] : undefined,
+            color: status === "correct" ? theme.colors.green[3] : undefined,
             fontFamily: theme.fontFamilyMonospace,
             fontSize: theme.spacing.lg,
             paddingLeft: rem(8),
             paddingRight: rem(8),
             width: `calc(${answer.length}ch)`,
-            transition: '500ms all ease-out',
+            transition: '300ms all ease-out',
           },
           root: {
             display: 'inline-block',
