@@ -1,4 +1,4 @@
-import { Group, Text, TextInput, rem, useMantineTheme } from "@mantine/core";
+import { Text, TextInput, rem, useMantineTheme } from "@mantine/core";
 import { KeyboardEvent, forwardRef, useEffect, useState } from "react";
 import useWdingleGame from "./GameData";
 import { useCounter } from "@mantine/hooks";
@@ -70,10 +70,10 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function 
       disabled={status === "correct"}
       error={status === "incorrect"}
       description={
-        <Group gap="sm">
-          <Text inherit>{value.length}/{answer.length}</Text>
-          <Text inherit>{answer.slice(0, localMistakes)}</Text>
-        </Group>
+        <>
+        <Text inherit component="span">{value.length}/{answer.length}</Text>
+        <Text inherit component="span" ml="sm">{answer.slice(0, localMistakes)}</Text>
+        </>
       }
       onChange={(event) => setValue(event.currentTarget.value)}
       onKeyDown={confirm}
