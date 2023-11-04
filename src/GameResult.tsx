@@ -1,11 +1,11 @@
-import { Modal, Rating, Title, Text, Stack, Space, CopyButton, Button, Blockquote } from "@mantine/core";
+import { Modal, Rating, Title, Text, Stack, Space, CopyButton, Button, Blockquote, Group } from "@mantine/core";
 import useWdingleGame from "./GameData";
 import { IconClipboard } from "@tabler/icons-react";
 import Confetti from "react-confetti";
 
-function shareData(date: string, stars: number, mistakes: number, words: number) {
+function shareData(date: string, stars: number, correct: number, mistakes: number, words: number) {
   return (
-    `wdingle ${date} \n` + `${"⭐".repeat(stars)}${"⬛".repeat(3 - stars)}\n` + `${mistakes} / ${words} mistakes\n`
+    `wdingle ${date} \n` + `${"⭐".repeat(stars)}${"⬛".repeat(3 - stars)}\n` + `${correct} / ${words} found\n` + `${mistakes} / ${words} mistakes\n`
   );
 }
 
@@ -46,9 +46,10 @@ export default function GameResult() {
                 {isWin && winPhrases[gameData.gameNumber % winPhrases.length]}
                 {isLose && losePhrases[gameData.gameNumber % losePhrases.length]}
               </Title>
-              <Text>
-                {gameData.mistakes} / {gameData.totalWords} mistakes
-              </Text>
+              <Group gap="xl">
+                <Text>{gameData.correct} / {gameData.totalWords} words</Text>
+                <Text>{gameData.mistakes} / {gameData.totalWords} mistakes</Text>
+              </Group>
               <Space />
               <Blockquote>{gameData.gameData.map(({ text }) => text)}</Blockquote>
               <Space />
@@ -59,7 +60,7 @@ export default function GameResult() {
                 </Text>
               )}
               <Text>Come back tomorrow for the next one!</Text>
-              <CopyButton value={shareData(gameData.gameDateString, stars, gameData.mistakes, gameData.totalWords)}>
+              <CopyButton value={shareData(gameData.gameDateString, stars, gameData.correct, gameData.mistakes, gameData.totalWords)}>
                 {({ copied, copy }) => (
                   <Button color={copied ? "green" : "yellow"} leftSection={<IconClipboard />} onClick={copy}>
                     Copy Your Results

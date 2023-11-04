@@ -72,7 +72,7 @@ function Header() {
       <Title order={2}>wdingle for {game.gameDateString}</Title>
       <Group gap="xl">
         <Text>
-          Words: {game.correct} / {game.totalWords}
+          Found: {game.correct} / {game.totalWords}
         </Text>
         <Text>
           Mistakes: {game.mistakes} / {game.maxMistakes}
