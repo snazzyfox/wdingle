@@ -1,4 +1,4 @@
-import { Modal, Rating, Title, Text, Stack, Space, CopyButton, Button } from "@mantine/core";
+import { Modal, Rating, Title, Text, Stack, Space, CopyButton, Button, Blockquote } from "@mantine/core";
 import useWdingleGame from "./GameData";
 import { IconClipboard } from "@tabler/icons-react";
 import Confetti from "react-confetti";
@@ -49,6 +49,8 @@ export default function GameResult() {
               <Text>
                 {gameData.mistakes} / {gameData.totalWords} mistakes
               </Text>
+              <Space />
+              <Blockquote>{gameData.gameData.map(({ text }) => text)}</Blockquote>
               <Space />
               {isWin && <Text>You got the copy pasta! Share this results with your frens!</Text>}
               {isLose && (
