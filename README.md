@@ -1,5 +1,5 @@
-# Mantine Vite template
+# wdingle
 
-Get started with the template by clicking `Use this template` button on the top of the page.
+It's like Wordle, but with Whiskey Dingo memes.
 
-[Documentation](https://mantine.dev/guides/vite/)
+See documentation from [mantine.js](https://mantine.dev/guides/vite/)
