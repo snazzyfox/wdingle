@@ -53,6 +53,7 @@ function GameSentence() {
 
   return (
     <Text
+      component="div"
       my="xl"
       mx="md"
       fz="lg"
