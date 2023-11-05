@@ -15,6 +15,13 @@ export default function Instructions() {
         but you must spell the word accurately, exactly as in the original
         copypasta!
       </Text>
+      <Text>
+        If you make a mistake, don't worry - a hint will be added to the word 
+        that reveals which letters in the word you got right. If you happen to 
+        not get any of them, we'll reveal letters in the word one by one! Don't
+        rely on these hints too much though - don't forget each mistake gets you
+        closer to a game over.
+      </Text>
       <Title order={2}>How scoring works</Title>
       <Text>
         The star scoring you get at the end is purely based on the number of
