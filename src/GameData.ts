@@ -35,9 +35,8 @@ export default function useWdingleGame() {
 
   // Debug override: id url param
   const params = new URLSearchParams(window.location.search);
-  const gameNumber =
-    Number(new URLSearchParams(params).get("id")) ??
-    Math.floor(gameDate.getTime() / 86_400_000);
+  const gameNumber = Number(new URLSearchParams(params).get("id") ?? Math.floor(gameDate.getTime() / 86_400_000));
+
   const gameData = getGameData(gameNumber);
   const totalWords = gameData.filter((s) => s.isBlank).length;
   const maxMistakes = totalWords;
