@@ -1,7 +1,6 @@
 import { TextInput, rem, useMantineTheme } from "@mantine/core";
 import { ChangeEvent, KeyboardEvent, forwardRef, useEffect, useState } from "react";
 import useWdingleGame from "./GameData";
-import { useCounter } from "@mantine/hooks";
 
 interface GameWordInputProps {
   index: number;
@@ -19,7 +18,7 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function 
   const answer = game.gameData[index].text;
   const [value, setValue] = useState("");
   const [status, setStatus] = useState<wordStatus>("input");
-  const [localMistakes, setLocalMistakes] = useCounter(0);
+  const [placeholder, setPlaceholder] = useState("_".repeat(answer.length));
 
   function handleKeyDown(event: KeyboardEvent) {
     if (event.key === "Enter" || event.key === " ") {
@@ -28,10 +27,22 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function 
         game.setFound(index);
         onCorrect && onCorrect();
       } else {
+        // generate new placeholder by adding in letters that are correct and in the right position
+        let newPlaceholder = Array.from(placeholder)
+          .map((letter, i) => (value[i]?.toLowerCase() === answer[i]?.toLowerCase() ? answer[i] : letter))
+          .join("");
+        console.log(placeholder, newPlaceholder, value);
+        if (newPlaceholder === placeholder) {
+          // didn't get any new letters; give them a random one
+          const idx = newPlaceholder.indexOf('_');
+          if (idx >= 0) {
+            newPlaceholder = placeholder.substring(0, idx) + answer[idx] + placeholder.substring(idx + 1);
+          }
+        }
+        setPlaceholder(newPlaceholder);
         setStatus("incorrect");
         setValue("");
         game.addMistake();
-        setLocalMistakes.increment();
       }
     }
   }
@@ -71,8 +82,8 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function 
       value={value}
       disabled={status === "correct"}
       error={status === "incorrect"}
-      description={status !== "correct" && value.length + '/' + answer.length}
-      placeholder={answer.slice(0, localMistakes) + '_'.repeat(answer.length - localMistakes)}
+      description={status !== "correct" && value.length + "/" + answer.length}
+      placeholder={placeholder}
       onChange={handleChange}
       onKeyDown={handleKeyDown}
       ref={ref}
