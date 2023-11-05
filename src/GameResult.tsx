@@ -5,7 +5,11 @@ import Confetti from "react-confetti";
 
 function shareData(date: string, stars: number, correct: number, mistakes: number, words: number) {
   return (
-    `wdingle ${date} \n` + `${"⭐".repeat(stars)}${"⬛".repeat(3 - stars)}\n` + `${correct} / ${words} found\n` + `${mistakes} / ${words} mistakes\n`
+    `wdingle ${date} \n` 
+    + `${"⭐".repeat(stars)}${"⬛".repeat(3 - stars)}\n` 
+    + `${correct} / ${words} found\n` 
+    + `${mistakes} / ${words} mistakes\n\n`
+    + window.location.toString()
   );
 }
 
