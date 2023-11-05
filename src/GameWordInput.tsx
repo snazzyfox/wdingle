@@ -1,5 +1,5 @@
-import { Text, TextInput, rem, useMantineTheme } from "@mantine/core";
-import { KeyboardEvent, forwardRef, useEffect, useState } from "react";
+import { TextInput, rem, useMantineTheme } from "@mantine/core";
+import { ChangeEvent, KeyboardEvent, forwardRef, useEffect, useState } from "react";
 import useWdingleGame from "./GameData";
 import { useCounter } from "@mantine/hooks";
 
@@ -21,7 +21,7 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function 
   const [status, setStatus] = useState<wordStatus>("input");
   const [localMistakes, setLocalMistakes] = useCounter(0);
 
-  function confirm(event: KeyboardEvent) {
+  function handleKeyDown(event: KeyboardEvent) {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       if (cleanString(value) == cleanString(answer)) {
@@ -29,15 +29,17 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function 
         onCorrect && onCorrect();
       } else {
         setStatus("incorrect");
+        setValue("");
         game.addMistake();
         setLocalMistakes.increment();
       }
     }
   }
 
-  useEffect(() => {
-    setStatus((status) => (status === "incorrect" ? "input" : status));
-  }, [value]);
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    setValue(event.currentTarget.value);
+    setStatus("input");
+  }
 
   useEffect(() => {
     if (game.found.includes(index)) {
@@ -69,14 +71,10 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function 
       value={value}
       disabled={status === "correct"}
       error={status === "incorrect"}
-      description={
-        <>
-        <Text inherit component="span">{value.length}/{answer.length}</Text>
-        <Text inherit component="span" ml="sm">{answer.slice(0, localMistakes)}</Text>
-        </>
-      }
-      onChange={(event) => setValue(event.currentTarget.value)}
-      onKeyDown={confirm}
+      description={status !== "correct" && value.length + '/' + answer.length}
+      placeholder={answer.slice(0, localMistakes) + '_'.repeat(answer.length - localMistakes)}
+      onChange={handleChange}
+      onKeyDown={handleKeyDown}
       ref={ref}
     />
   );
