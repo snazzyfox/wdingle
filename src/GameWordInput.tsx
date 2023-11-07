@@ -31,7 +31,6 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function 
         let newPlaceholder = Array.from(placeholder)
           .map((letter, i) => (value[i]?.toLowerCase() === answer[i]?.toLowerCase() ? answer[i] : letter))
           .join("");
-        console.log(placeholder, newPlaceholder, value);
         if (newPlaceholder === placeholder) {
           // didn't get any new letters; give them a random one
           const idx = newPlaceholder.indexOf('_');

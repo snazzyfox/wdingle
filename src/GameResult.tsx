@@ -27,8 +27,7 @@ export default function GameResult() {
 
   const isWin = gameData.correct === gameData.totalWords;
   const isLose = gameData.mistakes === gameData.totalWords;
-  const stars = Math.floor((1.2 - gameData.mistakes / gameData.totalWords) * 3);
-  console.log;
+  const stars = Math.ceil((1 - gameData.mistakes / gameData.totalWords) * 3);
 
   return (
     <>
