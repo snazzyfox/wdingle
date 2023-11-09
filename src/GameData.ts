@@ -1,6 +1,8 @@
 import { useLocalStorage } from "@mantine/hooks";
 import rawData from "./assets/data.txt?raw";
 
+const GAME_OFFSET = 3;
+
 interface GameSaveData {
   id: number;
   found: number[];
@@ -12,7 +14,7 @@ let _gamedata: GameData | null = null;
 function getGameData(gameNumber: number): GameData {
   if (!_gamedata) {
     const rows = rawData.split("\n");
-    const gameString = rows[gameNumber % rows.length];
+    const gameString = rows[(gameNumber + GAME_OFFSET) % rows.length];
     _gamedata = gameString.split(/(\[.+?\])/g).map((section) => {
       if (section.startsWith("[")) {
         return {

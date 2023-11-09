@@ -23,7 +23,7 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function 
   function handleKeyDown(event: KeyboardEvent) {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      if (cleanString(value) == cleanString(answer)) {
+      if (value && cleanString(value) == cleanString(answer)) {
         game.setFound(index);
         onCorrect && onCorrect();
       } else {
