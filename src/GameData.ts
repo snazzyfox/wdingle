@@ -1,7 +1,7 @@
 import { useLocalStorage } from "@mantine/hooks";
 import rawData from "./assets/data.txt?raw";
 
-const GAME_OFFSET = 19;
+const GAME_OFFSET = 15;
 
 interface GameSaveData {
   id: number;
