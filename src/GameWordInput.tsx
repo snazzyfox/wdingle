@@ -4,15 +4,15 @@ import useWdingleGame from "./GameData";
 
 interface GameWordInputProps {
   index: number;
-  onCorrect?: () => void;
+  onComplete?: () => void;
 }
-type wordStatus = "input" | "incorrect" | "correct";
+type wordStatus = "input" | "incorrect" | "correct" | "missed";
 
 function cleanString(s: string): string {
   return s.toLowerCase().replaceAll(/[^a-z]/g, "");
 }
 
-const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function ({ index, onCorrect }, ref) {
+const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function ({ index, onComplete }, ref) {
   const theme = useMantineTheme();
   const game = useWdingleGame();
   const answer = game.gameData[index].text;
@@ -23,10 +23,10 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function 
   function handleKeyDown(event: KeyboardEvent) {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      if (value && cleanString(value) == cleanString(answer)) {
+      if (cleanString(value) == cleanString(answer)) {
         game.setFound(index);
-        onCorrect && onCorrect();
-      } else {
+        onComplete && onComplete();
+      } else if (value) {
         // generate new placeholder by adding in letters that are correct and in the right position
         let newPlaceholder = Array.from(placeholder)
           .map((letter, i) => (value[i]?.toLowerCase() === answer[i]?.toLowerCase() ? answer[i] : letter))
@@ -38,10 +38,15 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function 
             newPlaceholder = placeholder.substring(0, idx) + answer[idx] + placeholder.substring(idx + 1);
           }
         }
-        setPlaceholder(newPlaceholder);
-        setStatus("incorrect");
-        setValue("");
-        game.addMistake();
+        if (newPlaceholder.includes("_")) {
+          setPlaceholder(newPlaceholder);
+          setStatus("incorrect");
+          setValue("");
+          game.addMistake();
+        } else {
+          game.setMissed(index);
+          onComplete && onComplete();
+        }
       }
     }
   }
@@ -55,16 +60,21 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function 
     if (game.found.includes(index)) {
       setValue(answer);
       setStatus("correct");
+    } else if (game.status === 'ended' || game.missed.includes(index)) {
+      setValue(answer);
+      setStatus("missed");
     }
-  }, [game.found, index, answer]);
+  }, [game.found, game.missed, game.status, index, answer]);
+
+  const disabled = status === "correct" || status === "missed";
 
   return (
     <TextInput
       styles={{
         input: {
           boxSizing: "content-box",
-          backgroundColor: status === "correct" ? "transparent" : undefined,
-          color: status === "correct" ? theme.colors.green[3] : undefined,
+          backgroundColor: disabled ? "transparent" : undefined,
+          color: status === "correct" ? theme.colors.green[5] : status === "missed" ? theme.colors.orange[5] : undefined,
           fontFamily: theme.fontFamilyMonospace,
           fontSize: theme.spacing.lg,
           paddingLeft: rem(8),
@@ -79,9 +89,9 @@ const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function 
       variant="filled"
       mt={rem(-16)}
       value={value}
-      disabled={status === "correct"}
+      disabled={disabled}
       error={status === "incorrect"}
-      description={status !== "correct" && value.length + "/" + answer.length}
+      description={!disabled && value.length + "/" + answer.length}
       placeholder={placeholder}
       onChange={handleChange}
       onKeyDown={handleKeyDown}

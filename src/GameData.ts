@@ -1,12 +1,14 @@
 import { useLocalStorage } from "@mantine/hooks";
 import rawData from "./assets/data.txt?raw";
 
-const GAME_OFFSET = 29;
+const GAME_OFFSET = 31;
 
 interface GameSaveData {
   id: number;
   found: number[];
+  missed: number[];
   mistakes: number;
+  status: 'new' | 'playing' | 'ended';
 }
 type GameData = Array<{ text: string; isBlank: boolean }>;
 let _gamedata: GameData | null = null;
@@ -51,21 +53,45 @@ export default function useWdingleGame() {
 
   const [gameSave, setGameSave] = useLocalStorage<GameSaveData>({
     key: "wdingle-game",
-    defaultValue: { id: gameNumber, found: [], mistakes: 0 },
+    defaultValue: { id: gameNumber, found: [], missed: [], mistakes: 0, gaveUp: false, },
   });
   if (gameSave!.id !== gameNumber) {
-    setGameSave({ id: gameNumber, found: [], mistakes: 0 });
+    setGameSave({ id: gameNumber, found: [], missed: [], mistakes: 0, gaveUp: false });
   }
 
   const correct = gameSave?.found.length ?? 0;
   const mistakes = gameSave?.mistakes ?? 0;
+  const status = correct === totalWords ? 'ended' : gameSave?.status ?? 'new';
+
+  // number of stars if UNDER OR EQUAL this number of mistakes
+  const starLevels = [
+    Math.max(4, totalWords),
+    Math.max(3, Math.ceil(totalWords * 0.50)),
+    Math.max(2, Math.ceil(totalWords * 0.25)),
+    Math.max(1, Math.ceil(totalWords * 0.10)),
+    0
+  ]
+  const maxStars = starLevels.length;
+  const stars = starLevels.findLastIndex((s) => mistakes <= s) + 1;
 
   function setFound(index: number) {
     setGameSave({ ...gameSave!, found: [...(gameSave!.found ?? []), index] });
   }
 
+  function setMissed(index: number) {
+    setGameSave({ ...gameSave!, missed: [...(gameSave!.missed ?? []), index], mistakes: gameSave!.mistakes + 1 });
+  }
+
   function addMistake() {
     setGameSave({ ...gameSave!, mistakes: gameSave!.mistakes + 1 });
+  }
+
+  function setStartGame() {
+    setGameSave({ ...gameSave!, status: 'playing' });
+  }
+
+  function setEndGame() {
+    setGameSave({ ...gameSave!, status: 'ended' });
   }
 
   return {
@@ -76,9 +102,17 @@ export default function useWdingleGame() {
     totalWords,
     correct,
     found: gameSave?.found ?? [],
-    mistakes,
+    missed: gameSave?.missed ?? [],
     setFound,
-    addMistake,
+    setMissed,
+    mistakes,
+    stars,
+    maxStars,
+    starLevels,
     maxMistakes,
+    addMistake,
+    setStartGame,
+    setEndGame,
+    status,
   };
 }
