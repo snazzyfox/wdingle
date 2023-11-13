@@ -16,22 +16,24 @@ export default function Instructions() {
         copypasta!
       </Text>
       <Text>
-        If you make a mistake, don't worry - a hint will be added to the word 
-        that reveals which letters in the word you got right. If you happen to 
-        not get any of them, we'll reveal letters in the word one by one! Don't
-        rely on these hints too much though - don't forget each mistake gets you
-        closer to a game over.
+        If you make a mistake, a hint will reveal the letters you got right. 
+        If you happen to not get any of them, we'll reveal letters in the word 
+        one by one. 
       </Text>
       <Title order={2}>How scoring works</Title>
       <Text>
         The star scoring you get at the end is purely based on the number of
         mistakes. Make less mistakes, get more stars!
       </Text>
+      <Text>
+        If you make a lot of incorrect guesses and run out of stars, you will also
+        have the option to give up and just reveal the answer.
+      </Text>
       <Title order={2}>Disclaimer</Title>
       <Text>
         This game includes utterances of Whiskey's chat, which may include
-        strong language or themes that some consider pepega, waytoodank, or
-        inappropriate for younger audiences. Player discretion is advised.
+        strong language, mean jokes, and themes that some consider pepega, 
+        waytoodank, or inappropriate. Player discretion is advised.
       </Text>
     </TypographyStylesProvider>
   );
