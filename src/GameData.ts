@@ -53,10 +53,10 @@ export default function useWdingleGame() {
 
   const [gameSave, setGameSave] = useLocalStorage<GameSaveData>({
     key: "wdingle-game",
-    defaultValue: { id: gameNumber, found: [], missed: [], mistakes: 0, gaveUp: false, },
+    defaultValue: { id: gameNumber, found: [], missed: [], mistakes: 0, status: 'new', },
   });
   if (gameSave!.id !== gameNumber) {
-    setGameSave({ id: gameNumber, found: [], missed: [], mistakes: 0, gaveUp: false });
+    setGameSave({ id: gameNumber, found: [], missed: [], mistakes: 0, status: 'new' });
   }
 
   const correct = gameSave?.found.length ?? 0;
