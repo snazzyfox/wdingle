@@ -10,7 +10,7 @@ export default function Game() {
     <Container my="xl" size="sm">
       <Stack gap="xl" align="center">
         <GameInfo />
-        <Transition transition="slide-down" duration={200} mounted={status !== "new"}>
+        <Transition duration={200} mounted={status !== "new"}>
           {(style) => <GameSentence style={style} />}
         </Transition>
       </Stack>

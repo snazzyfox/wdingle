@@ -43,7 +43,7 @@ export default function GameSentence({ style }: { style: CSSProperties }) {
   });
 
   return (
-    <Text component="div" my="xl" mx="md" fz="lg" lh={rem(64)} style={style}>
+    <Text component="div" mx="md" fz="lg" lh={rem(64)} style={style}>
       {sections.map((section) => section.component)}
     </Text>
   );

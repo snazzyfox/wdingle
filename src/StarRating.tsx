@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 function Star({ filled, text }: { filled: boolean; text: ReactNode }) {
   return (
     <Stack align="center" gap="0">
-      <Box c={ filled ? 'yellow' : 'gray' } style={{transition: 'color 500ms ease-in'}}><IconStarFilled size={36}/></Box>
+      <Box c={ filled ? 'yellow' : 'gray' } style={{transition: 'color 500ms ease-in'}} h="xl"><IconStarFilled size={36}/></Box>
       <Text size="xs">{text}</Text>
     </Stack>
   );

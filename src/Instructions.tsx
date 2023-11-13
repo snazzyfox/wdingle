@@ -7,8 +7,8 @@ export default function Instructions() {
       <Text>
         Guess accurately which Whiskey copy pasta is featured today! Press{" "}
         <Kbd>space</Kbd> or <Kbd>enter</Kbd> to submit your answer for each
-        blank. The goal is to fill out the entirety of the copy pasta while
-        making as few mistakes as possible.
+        blank. Fill out the entirety of the copy pasta while making as few 
+        mistakes as possible.
       </Text>
       <Text>
         You do not have to match letter casing and punctuation in the answer,
