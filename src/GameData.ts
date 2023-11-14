@@ -61,7 +61,8 @@ export default function useWdingleGame() {
 
   const correct = gameSave?.found.length ?? 0;
   const mistakes = gameSave?.mistakes ?? 0;
-  const status = correct === totalWords ? 'ended' : gameSave?.status ?? 'new';
+  const missed = gameSave?.missed.length ?? 0;
+  const status = correct + missed === totalWords ? 'ended' : gameSave?.status ?? 'new';
 
   // number of stars if UNDER OR EQUAL this number of mistakes
   const starLevels = [
