@@ -1,10 +1,9 @@
 import { Text, rem } from "@mantine/core";
 import GameWordInput from "./GameWordInput";
 import { CSSProperties, useEffect, useRef } from "react";
-import useWdingleGame from "./GameData";
+import { Game } from "./GameData";
 
-export default function GameSentence({ style }: { style: CSSProperties }) {
-  const game = useWdingleGame();
+export default function GameSentence({ style, game }: { style: CSSProperties, game: Game }) {
   const inputRefs = useRef<HTMLInputElement[]>([]);
 
   function focusNextInput(index: number) {
@@ -28,6 +27,7 @@ export default function GameSentence({ style }: { style: CSSProperties }) {
           <GameWordInput
             key={index}
             index={index}
+            game={game}
             ref={(el) => el && (inputRefs.current[index] = el)}
             onComplete={() => focusNextInput(index)}
           />

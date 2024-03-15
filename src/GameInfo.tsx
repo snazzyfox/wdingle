@@ -1,8 +1,9 @@
 import { Alert, Button, CopyButton, Group, Paper, RingProgress, Stack, Text, Title, Transition } from "@mantine/core";
-import useWdingleGame from "./GameData";
+import { Game } from "./GameData";
 import StarRating from "./StarRating";
 import { IconClipboard, IconPlayerPlayFilled, IconTrashFilled } from "@tabler/icons-react";
 import Confetti from "react-confetti";
+import seedrandom from "seedrandom";
 
 function shareData(date: string, stars: number, maxStars: number, correct: number, mistakes: number, words: number) {
   return (
@@ -31,10 +32,9 @@ const winPhrases = [
   "No Malding Necessary!",
 ];
 
-export default function GameInfo() {
+export default function GameInfo({ game }: { game: Game }) {
   const {
-    gameDateString,
-    gameNumber,
+    seed,
     correct,
     mistakes,
     stars,
@@ -43,13 +43,14 @@ export default function GameInfo() {
     setStartGame,
     setEndGame,
     status,
-  } = useWdingleGame();
+  } = game;
   const isWin = correct === totalWords;
   const isLose = status === "ended" && !isWin;
+  const random = seedrandom(seed).int32();
 
   return (
     <>
-      <Title order={2}>wdingle for {gameDateString}</Title>
+      <Title order={2}>wdingle {seed}</Title>
 
       <Paper w="100%" p="lg" shadow="xs" withBorder>
         <Group gap="md" justify="space-evenly" align="center">
@@ -66,7 +67,7 @@ export default function GameInfo() {
           />
           <Stack align="center" gap="0">
             <Text>{mistakes} incorrect guesses</Text>
-            <StarRating />
+            <StarRating game={game}/>
           </Stack>
           {status === "new" && (
             <Button onClick={setStartGame} leftSection={<IconPlayerPlayFilled />}>
@@ -79,7 +80,7 @@ export default function GameInfo() {
             </Button>
           )}
           {status === "ended" && (
-            <CopyButton value={shareData(gameDateString, stars, maxStars, correct, mistakes, totalWords)}>
+            <CopyButton value={shareData(seed, stars, maxStars, correct, mistakes, totalWords)}>
               {({ copied, copy }) => (
                 <Button color={copied ? "green" : "yellow"} leftSection={<IconClipboard />} onClick={copy}>
                   Copy Your Results
@@ -94,8 +95,8 @@ export default function GameInfo() {
         {(style) => (
           <Alert style={style} variant="filled" w="80%" color={isWin ? 'green' : 'orange'}>
             <Title order={3}>
-              {isWin && winPhrases[gameNumber % winPhrases.length]}
-              {isLose && losePhrases[gameNumber % losePhrases.length]}
+              {isWin && winPhrases[random % winPhrases.length]}
+              {isLose && losePhrases[random % losePhrases.length]}
             </Title>
             <Text>Come back tomorrow for the next one!</Text>
           </Alert>

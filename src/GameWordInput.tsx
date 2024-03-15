@@ -1,10 +1,11 @@
 import { TextInput, rem, useMantineTheme } from "@mantine/core";
 import { ChangeEvent, KeyboardEvent, forwardRef, useEffect, useState } from "react";
-import useWdingleGame from "./GameData";
+import { Game } from "./GameData";
 
 interface GameWordInputProps {
   index: number;
   onComplete?: () => void;
+  game: Game;
 }
 type wordStatus = "input" | "incorrect" | "correct" | "missed";
 
@@ -12,9 +13,8 @@ function cleanString(s: string): string {
   return s.toLowerCase().replaceAll(/[^a-z]/g, "");
 }
 
-const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function ({ index, onComplete }, ref) {
+const GameWordInput = forwardRef<HTMLInputElement, GameWordInputProps>(function ({ index, onComplete, game }, ref) {
   const theme = useMantineTheme();
-  const game = useWdingleGame();
   const answer = game.gameData[index].text;
   const [value, setValue] = useState("");
   const [status, setStatus] = useState<wordStatus>("input");

@@ -1,7 +1,7 @@
 import { Group, Stack, Text, Box } from "@mantine/core";
-import useWdingleGame from "./GameData";
 import { IconStarFilled } from "@tabler/icons-react";
 import { ReactNode } from "react";
+import { Game } from "./GameData";
 
 function Star({ filled, text }: { filled: boolean; text: ReactNode }) {
   return (
@@ -12,8 +12,8 @@ function Star({ filled, text }: { filled: boolean; text: ReactNode }) {
   );
 }
 
-export default function StarRating() {
-  const { stars, starLevels } = useWdingleGame();
+export default function StarRating({ game }: { game: Game }) {
+  const { stars, starLevels } = game;
   return (
     <Group gap="xs">
       {starLevels.map((l, i) => (
