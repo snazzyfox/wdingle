@@ -13,7 +13,7 @@ interface GameSaveData {
 type GameData = Array<{ text: string; isBlank: boolean }>;
 
 const BLANK_RATE = 0.6; // % of blanks actually shown in game
-const MAX_BLANKS = 30; // never present more than this many blanks to user
+const MAX_BLANKS = 24; // never present more than this many blanks to user
 const MIN_BLANKS = 6; // never present less than this many blanks to user (unless if the game has less)
 
 const _allGameData = rawData.split("\n");
