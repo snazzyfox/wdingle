@@ -19,4 +19,7 @@ export default defineConfig({
     eslintPlugin(),
   ],
   base: "/wdingle/",
+  esbuild: {
+    legalComments: 'none',
+  },
 });

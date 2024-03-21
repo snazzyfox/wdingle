@@ -10,9 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mantine/core": "^7.1.7",
-    "@mantine/hooks": "^7.1.7",
-    "@tabler/icons-react": "^2.40.0",
+    "@mantine/core": "^7.6.2",
+    "@mantine/hooks": "^7.6.2",
+    "@tabler/icons-react": "^3.1.0",
     "react": "^18.2.0",
     "react-confetti": "^6.1.0",
     "react-dom": "^18.2.0",
@@ -20,20 +20,20 @@
   },
   "devDependencies": {
     "@nabla/vite-plugin-eslint": "^1.5.0",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11",
+    "@types/react": "^18.2.67",
+    "@types/react-dom": "^18.2.22",
     "@types/seedrandom": "^3.0.8",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
-    "@vitejs/plugin-react": "^4.0.0",
-    "eslint": "^8.38.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.3.4",
-    "postcss": "^8.4.24",
-    "postcss-preset-mantine": "^1.9.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "postcss": "^8.4.38",
+    "postcss-preset-mantine": "^1.13.0",
     "postcss-simple-vars": "^7.0.1",
-    "typescript": "^5.0.2",
-    "unplugin-fonts": "^1.0.3",
-    "vite": "^4.3.2"
+    "typescript": "^5.4.3",
+    "unplugin-fonts": "^1.1.1",
+    "vite": "^5.2.2"
   }
 }
